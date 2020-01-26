@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <title>Candice</title>
+  <head>
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="static/chat.png"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+      body {
+
+      opacity:0.5px;
+background: url("static/products.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+      }
+      h1 {
+        color: white;
+        display: inline-block;
+        font-size: 3em;
+        margin-top:-40px;
+        padding: 10px;
+      }
+      h3 {
+        color: black;
+        font-size: 20px;
+        margin-top: 3px;
+        text-align: center;
+      }
+      #chatbox {
+
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        margin-top: 60px;
+      }
+      #userInput {
+
+        border-radius: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        margin-top: 60px;
+      }
+      #textInput {
+        border-radius: 4px;
+        width: 240%;
+        border: 1px solid #ccc;
+
+        font-size: 1rem;
+        margin-top: 293px;
+        margin-left: -120px;
+        float:left;
+        padding: 8px;
+
+      }
+      .userText {
+        border-radius: 5px;
+        color: black;
+        width:100%;
+        font-family: monospace;
+        font-size: 15px;
+        text-align: right;
+        line-height: 50px;
+      }
+      .userText span {
+
+        background-color:lightgrey;
+        padding: 8px;
+        border-radius: 2px;
+
+      }
+      .botText {
+        border-radius: 5px;
+        color: white;
+        font-family: monospace;
+        font-size: 14px;
+        text-align: left;
+        line-height: 30px;
+        width: 100%;
+      }
+      .botText span {
+
+        background-color: #4169e1;
+        padding: 8px;
+        width: 100%;
+
+
+      }
+
+      #chatbox{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        margin-left: 5px;
+ width: 100%;
+
+      }
+      #tidbit {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 300px;
+      }
+      .boxed {
+        height: 440px;
+        width: 400px;
+        margin: 0 auto;
+        border-radius: 10px;
+        margin-top: -30px;
+        text-align: center;
+        background-color:#808080;
+background: url("static/products1.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+
+        overflow:hidden;
+        padding-top: 50px;
+      }
+      .container {
+        height: 550px;
+        width: 420px;
+        margin: 0 auto;
+        border-radius: 10px;
+        margin-top: 20px;
+        text-align: center;
+        background-color: #de1028;
+        opacity: 1.0;
+        padding-top: 50px;
+        border-style: solid;
+        border-color: black;
+      }
+      .box {
+
+
+      }
+
+    </style>
+  </head>
+  <body bgcolor="black">
+<a href="http://localhost/101PRESENTS/index.php" style="text-decoration: none;background: red;color: black;border-radius: 10px"><- Back to Home</a>
+    <div class="box"></div>
+    <div class="container">
+       <center>
+      <h1><img src="static/chat.png" height="50" width="50" style="border-radius: 50%">
+
+      </h1>
+    </center>
+    <div class="boxed">
+
+      <div>
+        <div id="chatbox">
+
+          <p class="botText">
+            <span>Hi! I'm Candice, How can I help you?</span>
+          </p>
+        </div></div><div>
+        <div id="userInput">
+          <input id="textInput" type="text" name="msg" placeholder="Message" />
+        </div>
+      </div>
+      <script>
+        function getBotResponse() {
+          var rawText = $("#textInput").val();
+          var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+          $("#textInput").val("");
+          $("#chatbox").append(userHtml);
+          document
+            .getElementById("userInput")
+            .scrollIntoView({ block: "start", behavior: "smooth" });
+          $.get("/get", { msg: rawText }).done(function(data) {
+            var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+            $("#chatbox").append(botHtml);
+            document
+              .getElementById("userInput")
+              .scrollIntoView({ block: "start", behavior: "smooth" });
+          });
+        }
+        $("#textInput").keypress(function(e) {
+          if (e.which == 13) {
+            getBotResponse();
+          }
+        });
+      </script>
+    </div>
+    </div>
+  </body>
+</html>
